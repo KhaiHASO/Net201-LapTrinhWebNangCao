@@ -1,31 +1,71 @@
-html {
-  font-size: 14px;
+/* Dashboard Styles */
+body {
+    overflow-x: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+}
+
+#wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+#sidebar-wrapper {
+    min-height: 100vh;
+    margin-left: -17rem;
+    transition: margin .25s ease-out;
+    background: linear-gradient(180deg, #212529 0%, #343a40 100%);
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#sidebar-wrapper .sidebar-heading {
+    padding: 1.5rem 1.25rem;
+    font-size: 1.4rem;
+    font-weight: bold;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+#sidebar-wrapper .list-group {
+    width: 17rem;
+}
+
+#sidebar-wrapper .list-group-item {
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.8);
+    border: none;
+    padding: 1rem 1.25rem;
+    position: relative;
+    transition: all 0.2s;
+}
+
+#sidebar-wrapper .list-group-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding-left: 1.5rem;
+}
+
+#page-content-wrapper {
+    min-width: 100vw;
+}
+
+body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
+    margin-left: 0;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
+    #sidebar-wrapper {
+        margin-left: 0;
+    }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
+    #page-content-wrapper {
+        min-width: 0;
+        width: 100%;
+    }
 
-html {
-  position: relative;
-  min-height: 100%;
-}
-
-body {
-  margin-bottom: 60px;
-}
-
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
-}
-
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+    body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
+        margin-left: -17rem;
+    }
 }
