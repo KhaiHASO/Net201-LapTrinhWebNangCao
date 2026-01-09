@@ -1,0 +1,108 @@
+@model Demo01.Models.User
+
+@{
+    ViewData["Title"] = "User Registration";
+}
+
+<div class="container mt-5">
+    <h2>User Registration Form</h2>
+    <hr />
+    <div class="row">
+        <div class="col-md-8">
+            <form asp-action="Create" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Password" class="form-label"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Mobile" class="form-label"></label>
+                    <input asp-for="Mobile" class="form-control" />
+                    <span asp-validation-for="Mobile" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Gender</label>
+                    <div class="d-flex gap-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" asp-for="Gender" value="Male" id="GenderMale">
+                            <label class="form-check-label" for="GenderMale">Male</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" asp-for="Gender" value="Female" id="GenderFemale">
+                            <label class="form-check-label" for="GenderFemale">Female</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" asp-for="Gender" value="Other" id="GenderOther">
+                            <label class="form-check-label" for="GenderOther">Other</label>
+                        </div>
+                    </div>
+                    <span asp-validation-for="Gender" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Country" class="form-label"></label>
+                    <select asp-for="Country" class="form-select">
+                        <option value="">-- Select Country --</option>
+                        @if (ViewBag.Countries != null)
+                        {
+                            foreach (var country in ViewBag.Countries)
+                            {
+                                <option value="@country">@country</option>
+                            }
+                        }
+                    </select>
+                    <span asp-validation-for="Country" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="DateOfBirth" class="form-label"></label>
+                    <input asp-for="DateOfBirth" class="form-control" />
+                    <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Hobbies</label>
+                    <div class="card p-3">
+                        @if (ViewBag.Hobbies != null)
+                        {
+                            foreach (var hobby in ViewBag.Hobbies)
+                            {
+                                <div class="form-check">
+                                    <!-- Naming the checkbox 'Hobbies' allows Model Binding to bind selected values to List<string> Hobbies property -->
+                                    <input class="form-check-input" type="checkbox" name="Hobbies" value="@hobby" id="hobby_@hobby" 
+                                           @(Model?.Hobbies?.Contains(hobby) == true ? "checked" : "")>
+                                    <label class="form-check-label" for="hobby_@hobby">@hobby</label>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                    <button type="reset" class="btn btn-secondary">Reset</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
