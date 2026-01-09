@@ -21,7 +21,7 @@ Demo này giúp hiểu rõ:
 
 ## Hướng Dẫn Chạy Demo
 
-Đảm bảo bạn đã cài đặt .NET SDK (tương thích .NET 6.0 trở lên).
+Đảm bảo  đã cài đặt .NET SDK (tương thích .NET 6.0 trở lên).
 
 1.  Mở terminal tại thư mục `Demo01`.
 2.  Chạy lệnh build để khôi phục các gói và biên dịch:

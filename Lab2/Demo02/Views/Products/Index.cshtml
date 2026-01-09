@@ -1,0 +1,124 @@
+@model List<Demo02.Models.Product>
+
+@{
+    ViewData["Title"] = "Product List";
+    var categories = ViewBag.Categories as List<string>;
+    var currentSort = ViewBag.CurrentSort as string;
+    var currentSortAsc = (bool)ViewBag.CurrentSortAsc;
+}
+
+<div class="container mt-4">
+    <h2>Available Products</h2>
+    
+    <!-- Filter Form -->
+    <form method="get" class="row g-3 mb-4 p-3 border rounded bg-light">
+        <div class="col-md-3">
+            <label class="form-label">Search</label>
+            <input type="text" name="SearchTerm" class="form-control" value="@ViewBag.CurrentSearch" placeholder="Product name...">
+        </div>
+        
+        <div class="col-md-3">
+            <label class="form-label">Category</label>
+            <select name="Category" class="form-select">
+                <option value="">All Categories</option>
+                @if (categories != null)
+                {
+                    foreach (var cat in categories)
+                    {
+                        <!option value="@cat" @(cat == ViewBag.CurrentCategory ? "selected" : "")>@cat</!option>
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="col-md-2">
+             <label class="form-label">Sort By</label>
+             <select name="SortBy" class="form-select">
+                 <!option value="name" @(currentSort == "name" ? "selected" : "")>Name</!option>
+                 <!option value="price" @(currentSort == "price" ? "selected" : "")>Price</!option>
+             </select>
+        </div>
+
+        <div class="col-md-2">
+            <label class="form-label">Order</label>
+            <select name="SortAscending" class="form-select">
+                <!option value="true" @(currentSortAsc ? "selected" : "")>Ascending</!option>
+                <!option value="false" @(!currentSortAsc ? "selected" : "")>Descending</!option>
+            </select>
+        </div>
+
+        <div class="col-md-2 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary w-100">Filter</button>
+        </div>
+    </form>
+
+    <!-- Product Table -->
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var product in Model)
+                {
+                    <tr>
+                        <td>@product.Id</td>
+                        <td>@product.Name</td>
+                        <td>@product.Category</td>
+                        <td>$@product.Price</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4" class="text-center">No products found.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    @{
+        int pageNumber = ViewBag.PageNumber;
+        int totalPages = ViewBag.TotalPages;
+        string searchTerm = ViewBag.CurrentSearch;
+        string category = ViewBag.CurrentCategory;
+        string sortBy = ViewBag.CurrentSort;
+        bool sortAsc = ViewBag.CurrentSortAsc;
+    }
+
+    <nav>
+        <ul class="pagination justify-content-center">
+            <li class="page-item @(pageNumber <= 1 ? "disabled" : "")">
+                <a class="page-link" 
+                   href="@Url.Action("Index", new { PageNumber = pageNumber - 1, SearchTerm = searchTerm, Category = category, SortBy = sortBy, SortAscending = sortAsc })">
+                   Previous
+                </a>
+            </li>
+            
+            @for (int i = 1; i <= totalPages; i++)
+            {
+                <li class="page-item @(i == pageNumber ? "active" : "")">
+                    <a class="page-link" 
+                       href="@Url.Action("Index", new { PageNumber = i, SearchTerm = searchTerm, Category = category, SortBy = sortBy, SortAscending = sortAsc })">
+                        @i
+                    </a>
+                </li>
+            }
+
+            <li class="page-item @(pageNumber >= totalPages ? "disabled" : "")">
+                <a class="page-link" 
+                   href="@Url.Action("Index", new { PageNumber = pageNumber + 1, SearchTerm = searchTerm, Category = category, SortBy = sortBy, SortAscending = sortAsc })">
+                   Next
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
