@@ -1,0 +1,50 @@
+@model IEnumerable<Lab2ModelBinding.Models.Product>
+@{
+    var searchModel = ViewBag.SearchModel as Lab2ModelBinding.Models.ProductSearchModel;
+}
+
+<h2>Product Search</h2>
+
+<form asp-action="Search" method="get" class="mb-3">
+    <div class="row g-3">
+        <div class="col-md-4">
+            <label class="form-label">Name</label>
+            <input type="text" name="Name" class="form-control" value="@searchModel?.Name" placeholder="Product Name">
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Min Price</label>
+            <input type="number" name="MinPrice" class="form-control" value="@searchModel?.MinPrice" step="0.01">
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Max Price</label>
+            <input type="number" name="MaxPrice" class="form-control" value="@searchModel?.MaxPrice" step="0.01">
+        </div>
+        <div class="col-md-2 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary w-100">Search</button>
+        </div>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Description</td>
+                <td>@item.Price</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

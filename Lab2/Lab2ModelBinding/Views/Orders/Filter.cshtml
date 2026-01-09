@@ -1,0 +1,57 @@
+@model IEnumerable<Lab2ModelBinding.Models.Order>
+@{
+    var filterModel = ViewBag.FilterModel as Lab2ModelBinding.Models.OrderFilterModel;
+}
+
+<h2>Order Filter</h2>
+
+<div class="mb-3"><a asp-action="Create" class="btn btn-success">Create New Order</a></div>
+
+<form asp-action="Filter" method="get" class="mb-3">
+    <div class="row g-3">
+        <div class="col-md-3">
+            <label class="form-label">Start Date</label>
+            <input type="date" name="StartDate" class="form-control" value="@filterModel?.StartDate?.ToString("yyyy-MM-dd")">
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">End Date</label>
+            <input type="date" name="EndDate" class="form-control" value="@filterModel?.EndDate?.ToString("yyyy-MM-dd")">
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Status</label>
+             <select name="Status" class="form-control" value="@filterModel?.Status">
+                <option value="">All</option>
+                <option value="Pending">Pending</option>
+                <option value="Completed">Completed</option>
+                <option value="Cancelled">Cancelled</option>
+            </select>
+        </div>
+        <div class="col-md-3 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary w-100">Filter</button>
+        </div>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Customer</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Details Count</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.OrderId</td>
+                <td>@item.CustomerName</td>
+                <td>@item.OrderDate.ToString("g")</td>
+                <td>@item.Status</td>
+                <td>@item.OrderDetails.Count</td>
+            </tr>
+        }
+    </tbody>
+</table>
