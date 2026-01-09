@@ -1,0 +1,123 @@
+@model Demo03.Models.Student
+@using Demo03.Models
+
+@{
+    ViewData["Title"] = "Student Registration";
+}
+
+<div class="container mt-5">
+    <h2>Student Registration Form</h2>
+    <hr />
+    <form asp-action="Create" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+        <!-- Basic Info -->
+        <h4 class="mb-3">Basic Information</h4>
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Email" class="form-label"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Password" class="form-label"></label>
+            <input asp-for="Password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="DateOfBirth" class="form-label"></label>
+            <input asp-for="DateOfBirth" class="form-control" />
+            <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+        </div>
+
+         <div class="mb-3 form-check">
+            <input class="form-check-input" type="checkbox" asp-for="IsRegular">
+            <label class="form-check-label" asp-for="IsRegular">
+                Is Regular Student
+            </label>
+        </div>
+
+        <!-- Enum Binding: Gender (Radio Buttons) -->
+        <div class="mb-3">
+            <label class="form-label d-block">Gender</label>
+            @foreach (var gender in ViewBag.AllGenders)
+            {
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" asp-for="Gender" value="@gender" id="Gender_@gender" />
+                    <label class="form-check-label" for="Gender_@gender">@gender</label>
+                </div>
+            }
+            <span asp-validation-for="Gender" class="text-danger"></span>
+        </div>
+
+        <!-- Enum Binding: Branch (Select List) -->
+        <div class="mb-3">
+            <label asp-for="Branch" class="form-label"></label>
+            <!-- 
+                Using asp-items with a SelectList from ViewBag or manually iterating options.
+                Here we manually iterate for demo clarity based on the requirement to pass list via ViewBag.
+            -->
+            <select asp-for="Branch" class="form-select">
+                <option value="">-- Select Branch --</option>
+                @foreach (var branch in ViewBag.AllBranches)
+                {
+                    <option value="@branch">@branch</option>
+                }
+            </select>
+            <span asp-validation-for="Branch" class="text-danger"></span>
+        </div>
+
+        <hr />
+        
+        <!-- Complex Type Binding: Address -->
+        <h4 class="mb-3">Address Information</h4>
+        <!-- Tag Helpers generate name="Address.Street", which binds automatically to Student.Address.Street -->
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="Address.Street" class="form-label"></label>
+                <input asp-for="Address.Street" class="form-control" />
+                <span asp-validation-for="Address.Street" class="text-danger"></span>
+            </div>
+            <div class="col-md-3 mb-3">
+                <label asp-for="Address.City" class="form-label"></label>
+                <input asp-for="Address.City" class="form-control" />
+                <span asp-validation-for="Address.City" class="text-danger"></span>
+            </div>
+            <div class="col-md-3 mb-3">
+                <label asp-for="Address.ZipCode" class="form-label"></label>
+                <input asp-for="Address.ZipCode" class="form-control" />
+                <span asp-validation-for="Address.ZipCode" class="text-danger"></span>
+            </div>
+        </div>
+
+        <hr />
+
+        <!-- Collection Binding: Hobbies -->
+        <h4 class="mb-3">Hobbies</h4>
+        <div class="mb-3">
+            <div class="card p-3">
+                @foreach (var hobby in ViewBag.AllHobbies)
+                {
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="Hobbies" value="@hobby" id="hobby_@hobby" 
+                               @(Model?.Hobbies?.Contains(hobby) == true ? "checked" : "")>
+                        <label class="form-check-label" for="hobby_@hobby">@hobby</label>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
