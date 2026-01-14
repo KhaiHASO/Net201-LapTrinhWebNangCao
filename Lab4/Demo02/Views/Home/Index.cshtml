@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center py-5">
+    <h1 class="display-4 text-primary fw-bold">Demo 02: EF Core Conventions & Relationships</h1>
+    <p class="lead text-secondary">Bài thực hành về các quy tắc ngầm định (Conventions) và quan hệ bảng trong EF Core</p>
+    <hr class="my-4">
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-5 mb-4">
+        <div class="card shadow-sm border-0 h-100 hover-shadow">
+            <div class="card-body text-center p-5">
+                <i class="bi bi-people-fill display-1 text-info mb-3"></i>
+                <h3 class="card-title">Quản Lý Khách Hàng</h3>
+                <p class="card-text text-muted">Minh họa Convention: Tự động ánh xạ PK, tên bảng.</p>
+                <a asp-controller="Customer" asp-action="Index" class="btn btn-outline-info btn-lg mt-3 rounded-pill px-4">
+                    Xem Khách Hàng
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5 mb-4">
+        <div class="card shadow-sm border-0 h-100 hover-shadow">
+            <div class="card-body text-center p-5">
+                <i class="bi bi-diagram-3-fill display-1 text-success mb-3"></i>
+                <h3 class="card-title">Phòng Ban & Nhân Viên</h3>
+                <p class="card-text text-muted">Minh họa Quan hệ 1-N: Một phòng ban có nhiều nhân viên.</p>
+                <a asp-controller="Department" asp-action="Index" class="btn btn-outline-success btn-lg mt-3 rounded-pill px-4">
+                    Xem Phòng Ban
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hover-shadow:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+        transition: 0.3s;
+    }
+</style>
