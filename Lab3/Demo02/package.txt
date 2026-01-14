@@ -1,0 +1,8 @@
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet add package Microsoft.EntityFrameworkCore.Design
+dotnet add package Microsoft.EntityFrameworkCore.Tools
+dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
+dotnet tool install -g dotnet-aspnet-codegenerator
+
+#tạo crud 
+dotnet aspnet-codegenerator controller -name ProductsController -m Products -dc InventoryContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries

@@ -24,6 +24,7 @@ namespace Lab2ModelBinding.Models
                 new Product { Id = 4, Name = "Bàn phím Keychron K2", Description = "Bàn phím cơ không dây", Price = 1800000 },
                 new Product { Id = 5, Name = "Màn hình LG UltraFine", Description = "Màn hình 4K sắc nét", Price = 12000000 }
             );
+            
 
             // Seed Orders
             modelBuilder.Entity<Order>().HasData(
@@ -37,6 +38,7 @@ namespace Lab2ModelBinding.Models
                 new OrderDetail { OrderDetailId = 2, OrderId = 1, ProductName = "Chuột Logitech MX Master 3", Quantity = 1, Price = 2500000 },
                 new OrderDetail { OrderDetailId = 3, OrderId = 2, ProductName = "MacBook Air M2", Quantity = 1, Price = 28000000 }
             );
+
         }
     }
 }

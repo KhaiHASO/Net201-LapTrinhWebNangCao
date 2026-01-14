@@ -16,7 +16,26 @@ namespace Demo03.Controllers
             ViewBag.AllBranches = Enum.GetValues(typeof(Branch)).Cast<Branch>();
             ViewBag.AllHobbies = new List<string> { "Music", "Sports", "Reading", "Travel", "Coding", "Gaming" };
 
-            return View();
+            // Initialize default values
+            var defaultStudent = new Student
+            {
+                Name = "Nguyen Van A",
+                Email = "nguyenvana@example.com",
+                Password = "Password123",
+                Branch = Branch.IT,
+                Gender = Gender.Male,
+                IsRegular = true,
+                DateOfBirth = new DateTime(2000, 1, 1),
+                Address = new Address
+                {
+                    Street = "123 Le Loi",
+                    City = "Ho Chi Minh",
+                    ZipCode = "70000"
+                },
+                Hobbies = new List<string> { "Music", "Coding" }
+            };
+
+            return View(defaultStudent);
         }
 
         [HttpPost]
