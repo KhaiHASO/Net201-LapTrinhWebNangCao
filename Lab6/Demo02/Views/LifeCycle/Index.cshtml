@@ -1,0 +1,63 @@
+@{
+    ViewData["Title"] = "Demo Dependency Injection Lifecycle";
+}
+
+<div class="container text-center">
+    <h1 class="my-4">Demo Dependency Injection Lifecycle (Demo02)</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Service Lifetimes Comparison</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Service Type</th>
+                                <th>Instance 1 GUID</th>
+                                <th>Instance 2 GUID</th>
+                                <th>Nhận xét</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="table-warning">
+                                <td class="fw-bold">Transient</td>
+                                <td>@ViewBag.Transient1</td>
+                                <td>@ViewBag.Transient2</td>
+                                <td>Khác nhau (New Instance per Call)</td>
+                            </tr>
+                            <tr class="table-info">
+                                <td class="fw-bold">Scoped</td>
+                                <td>@ViewBag.Scoped1</td>
+                                <td>@ViewBag.Scoped2</td>
+                                <td>Giống nhau (Same Instance per Request)</td>
+                            </tr>
+                            <tr class="table-success">
+                                <td class="fw-bold">Singleton</td>
+                                <td>@ViewBag.Singleton1</td>
+                                <td>@ViewBag.Singleton2</td>
+                                <td>Giống nhau (One Instance per App)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="mt-4 text-start">
+                        <div class="alert alert-light border">
+                            <strong>Hướng dẫn:</strong> Bấm F5 hoặc nút bên dưới để Reload trang (tạo Request mới). <br />
+                            <ul>
+                                <li><span class="badge bg-warning text-dark">Transient</span>: Luôn đổi mới cả 2 cột.</li>
+                                <li><span class="badge bg-info text-dark">Scoped</span>: Đổi mới cả 2 cột (nhưng 2 cột vẫn bằng nhau trong 1 lần load).</li>
+                                <li><span class="badge bg-success">Singleton</span>: Giữ nguyên giá trị cũ, không đổi suốt vòng đời ứng dụng.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                     <a href="javascript:window.location.reload();" class="btn btn-lg btn-primary">🔄 Refresh Page</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

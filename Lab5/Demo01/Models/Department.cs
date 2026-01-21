@@ -30,5 +30,6 @@ namespace Demo01.Models
         // Navigation Property - Quan hệ 1-N với Employee
         // Một phòng ban có nhiều nhân viên
         public virtual ICollection<Employee> Employees { get; set; } = new List<Employee>();
+    
     }
 }

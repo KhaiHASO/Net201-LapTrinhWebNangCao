@@ -41,7 +41,7 @@ namespace Demo02.Data
             // Giải thích Cascade Delete:
             // - Khi xóa một ClassRoom, EF Core sẽ TỰ ĐỘNG xóa tất cả Students thuộc lớp đó
             // - Không cần phải xóa Students thủ công
-            // - Đây là hành vi quan trọng cần demo cho sinh viên
+            // - Đây là hành vi quan trọng cần demo
 
             // ========================================
             // CẤU HÌNH BỔ SUNG

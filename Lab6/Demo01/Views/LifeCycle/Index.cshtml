@@ -1,0 +1,52 @@
+@{
+    ViewData["Title"] = "Demo Dependency Injection Lifecycle";
+}
+
+<div class="container text-center">
+    <h1 class="my-4">Demo Dependency Injection Lifecycle</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <table class="table table-bordered table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Service Type</th>
+                        <th>Instance 1 GUID</th>
+                        <th>Instance 2 GUID</th>
+                        <th>Nhận xét</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-warning">
+                        <td class="fw-bold">Transient</td>
+                        <td>@ViewBag.Transient1</td>
+                        <td>@ViewBag.Transient2</td>
+                        <td>Khác nhau (New Instance per Call)</td>
+                    </tr>
+                    <tr class="table-primary">
+                        <td class="fw-bold">Scoped</td>
+                        <td>@ViewBag.Scoped1</td>
+                        <td>@ViewBag.Scoped2</td>
+                        <td>Giống nhau (Same Instance per Request)</td>
+                    </tr>
+                    <tr class="table-success">
+                        <td class="fw-bold">Singleton</td>
+                        <td>@ViewBag.Singleton1</td>
+                        <td>@ViewBag.Singleton2</td>
+                        <td>Giống nhau (One Instance per App)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="mt-4">
+                <p class="alert alert-info">
+                    <strong>Hướng dẫn:</strong> Bấm F5 hoặc nút bên dưới để Reload trang (tạo Request mới). <br />
+                    - <b>Transient</b>: Luôn đổi mới cả 2 cột. <br />
+                    - <b>Scoped</b>: Đổi mới cả 2 cột (nhưng 2 cột vẫn bằng nhau trong 1 lần load). <br />
+                    - <b>Singleton</b>: Giữ nguyên giá trị cũ, không đổi.
+                </p>
+                <a href="javascript:window.location.reload();" class="btn btn-lg btn-outline-primary">🔄 Refresh Page</a>
+            </div>
+        </div>
+    </div>
+</div>
