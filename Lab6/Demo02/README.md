@@ -17,7 +17,7 @@ Project được chia làm 2 phần demo riêng biệt, truy cập từ Dashboar
 ### 2. Demo 2: Service Lifetimes (Vòng đời)
 **Mục đích:** So sánh trực quan 3 chế độ `Transient`, `Scoped`, `Singleton`.
 
-## 👨‍🏫 Kịch bản  (Dành cho Giảng Viên)
+## 👨‍🏫 Kịch bản
 
 ### Màn 1: Demo "Loose Coupling" (Tại sao cần DI?)
 

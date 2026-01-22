@@ -11,8 +11,8 @@ builder.Services.AddDbContext<Demo02.Data.ApplicationDbContext>(options =>
 
 // 2. Config DI Services (LifeCycle Demo)
 // Demo 1: Basic DI (Calculator) - Thay đổi class ở đây để demo
-builder.Services.AddTransient<Demo02.Services.Calculators.ICalculatorService, Demo02.Services.Calculators.StandardCalculator>();
-// builder.Services.AddTransient<Demo02.Services.Calculators.ICalculatorService, Demo02.Services.Calculators.BlackFridayCalculator>();
+//builder.Services.AddTransient<Demo02.Services.Calculators.ICalculatorService, Demo02.Services.Calculators.StandardCalculator>();
+builder.Services.AddTransient<Demo02.Services.Calculators.ICalculatorService, Demo02.Services.Calculators.BlackFridayCalculator>();
 
 // Demo 2: Life Cycle
 builder.Services.AddTransient<Demo02.Services.ITransientService, Demo02.Services.TransientService>();
