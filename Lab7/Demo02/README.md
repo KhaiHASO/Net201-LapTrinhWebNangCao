@@ -36,16 +36,40 @@ dotnet run --project Demo02
 ---
 
 ## 3. Kiến trúc dự án
-Dự án được triển khai theo mô hình N-Tier (3-Layer):
-1.  **Repository Layer (`CustomerRepository`)**: Chịu trách nhiệm giao tiếp trực tiếp với DB.
-    -   Sử dụng `_context.Customers.FromSqlRaw(...)` để gọi SP `SELECT`.
-    -   Sử dụng `_context.Database.ExecuteSqlRaw(...)` với `SqlParameter` để gọi SP `UPDATE`.
-2.  **Service Layer (`CustomerService`)**: Chứa logic nghiệp vụ, gọi xuống Repository.
-3.  **Presentation Layer (`CustomersController`)**: Gọi Service để lấy dữ liệu và hiển thị lên View.
+Dự án được triển khai theo mô hình N-Tier (3-Layer) để tách biệt trách nhiệm:
+
+### 3.1. Repository Pattern (`CustomerRepository`)
+- **Vai trò:** Lớp này chịu trách nhiệm duy nhất là **truy cập dữ liệu**. Nó giao tiếp trực tiếp với DatabaseContext của EF Core.
+- **Nhiệm vụ trong Demo này:**
+  - Ẩn giấu sự phức tạp của việc gọi thực thi SQL trần (Raw SQL) hay Stored Procedure.
+  - Cung cấp các hàm sạch sẽ (`GetActiveCustomers`, `UpdateCustomerStatus`) cho lớp Service sử dụng mà không cần biết bên dưới là SQL hay EF Core thuần.
+  - **Code:**
+    - Sử dụng `_context.Customers.FromSqlRaw(...)` để gọi SP `SELECT`.
+    - Sử dụng `_context.Database.ExecuteSqlRaw(...)` với `SqlParameter` để gọi SP `UPDATE`.
+
+### 3.2. Service Pattern (`CustomerService`)
+- **Vai trò:** Lớp này chứa **logic nghiệp vụ (Business Logic)** của ứng dụng.
+- **Tại sao cần lớp này?**
+  - Giúp Controller gọn nhẹ (Fat Model, Skinny Controller).
+  - Tách biệt logic nghiệp vụ khỏi logic truy cập dữ liệu. Ví dụ: Nếu sau này đổi từ SQL Server sang file JSON, chỉ cần sửa Service/Repository mà không ảnh hưởng Controller.
+  - Trong dự án thực tế, Service sẽ thực hiện validate dữ liệu, tính toán, gửi email, ghi log... trước khi gọi Repository. Trong demo này, Service chỉ đơn giản là gọi chuyển tiếp xuống Repository để minh họa cấu trúc.
+
+### 3.3. Presentation Layer (`CustomersController`)
+- **Vai trò:** Tiếp nhận request từ người dùng (HTTP GET/POST), gọi Service để xử lý, và trả về View tương ứng.
 
 ---
 
-## 4. Kịch bản Demo (Script cho Giảng viên)
+## 4. Tại sao chạy Migration lại có Stored Procedure?
+Thông thường, EF Core Migration chỉ tạo bảng (Table) dựa trên các class Model. Tuy nhiên, trong dự án này, khi bạn chạy `dotnet ef database update`, Database lại có sẵn 2 Stored Procedures.
+
+**Lý do:**
+- Trong file migration `Migrations/...FirstCreate.cs`, chúng ta có thể chèn các lệnh SQL tùy ý.
+- Tác giả đã sử dụng lệnh `migrationBuilder.Sql(@"CREATE PROCEDURE ...")` để tự động tạo SP ngay khi khởi tạo Database.
+- **Lợi ích:** Giúp việc triển khai (Deploy) dễ dàng hơn. Bạn không cần chạy script SQL thủ công bên ngoài; chỉ cần lệnh update database của EF Core là đủ tất cả cấu trúc DB.
+
+---
+
+## 5. Kịch bản Demo (Script cho Giảng viên)
 
 ### Bước 1: Kiểm tra Database
 - Mở SQL Server, query bảng `Customers` để thấy có cả user `Active`, `Inactive`, `New`.
@@ -74,7 +98,7 @@ Dự án được triển khai theo mô hình N-Tier (3-Layer):
   _context.Database.ExecuteSqlRaw("EXECUTE dbo.UpdateCustomer @CustomerId, @NewStatus", pId, pStatus);
   ```
 
-## 5. Testing
+## 6. Testing
 Dự án bao gồm Unit Test cho Service Layer (`Demo02.Tests`) sử dụng thư viện **Moq**.
 Để chạy test:
 ```bash
