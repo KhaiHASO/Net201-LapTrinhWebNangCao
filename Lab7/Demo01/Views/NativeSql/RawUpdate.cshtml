@@ -1,0 +1,21 @@
+@{
+    ViewData["Title"] = "Raw Update";
+}
+
+<h1>ExecuteSqlRaw Demo</h1>
+<p>Command: <code>UPDATE Students SET Age = Age + 1 WHERE Id = 1</code></p>
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-success">
+        @ViewBag.Message
+    </div>
+}
+
+<form asp-action="RawUpdate" method="post">
+    <button type="submit" class="btn btn-warning">Execute Update (Increase Age of Student #1)</button>
+</form>
+
+<div class="mt-3">
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>

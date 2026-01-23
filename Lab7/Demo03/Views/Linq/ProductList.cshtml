@@ -1,0 +1,56 @@
+@model IEnumerable<Demo03.Models.Product>
+
+@{
+    ViewData["Title"] = ViewBag.Title ?? "Product List";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Category</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ProductId</td>
+                <td>@item.ProductName</td>
+                <td>@item.Price.ToString("C")</td>
+                <td>
+                    @(item.Category != null ? item.Category.CategoryName : "N/A")
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (ViewBag.TotalPages != null)
+{
+    <nav>
+        <ul class="pagination">
+            @{
+                int pageIndex = ViewBag.PageIndex;
+                int totalPages = ViewBag.TotalPages;
+                int prevPage = pageIndex > 1 ? pageIndex - 1 : 1;
+                int nextPage = pageIndex < totalPages ? pageIndex + 1 : totalPages;
+            }
+            <li class="page-item @(pageIndex == 1 ? "disabled" : "")">
+                <a class="page-link" asp-action="Pagination" asp-route-pageIndex="@prevPage">Previous</a>
+            </li>
+            <li class="page-item disabled">
+                <span class="page-link">Page @pageIndex of @totalPages</span>
+            </li>
+            <li class="page-item @(pageIndex == totalPages ? "disabled" : "")">
+                <a class="page-link" asp-action="Pagination" asp-route-pageIndex="@nextPage">Next</a>
+            </li>
+        </ul>
+    </nav>
+}
+
+<a asp-action="Index" class="btn btn-secondary mt-3">Back to Menu</a>

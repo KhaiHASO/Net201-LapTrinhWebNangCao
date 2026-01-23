@@ -1,0 +1,42 @@
+@{
+    ViewData["Title"] = "LINQ to Entities Demo";
+}
+
+<div class="text-center">
+    <h1 class="display-4">LINQ to Entities Demo</h1>
+    <p>Advanced Querying Techniques in EF Core</p>
+</div>
+
+<div class="list-group mt-4">
+    <a asp-action="BasicQuery" class="list-group-item list-group-item-action">
+        1. Basic Query (Filter Price > 100 & Sort by Name)
+    </a>
+    <a asp-action="SingleResult" asp-route-id="1" class="list-group-item list-group-item-action">
+        2. Single Result (Find ID=1, Handle Null)
+    </a>
+    <a asp-action="Relationships" class="list-group-item list-group-item-action">
+        3. Relationships (Include Category)
+    </a>
+    <a asp-action="Grouping" class="list-group-item list-group-item-action">
+        4. Grouping (Stats by Category)
+    </a>
+    <a asp-action="Projection" class="list-group-item list-group-item-action">
+        5. Projection (Map to ViewModel)
+    </a>
+    <a asp-action="Pagination" class="list-group-item list-group-item-action">
+        6. Pagination (Page 1, Size 3)
+    </a>
+    <div class="list-group-item">
+        <form asp-action="Search" method="get" class="row g-2">
+            <div class="col-auto">
+                <label class="col-form-label">7. Search:</label>
+            </div>
+            <div class="col-auto">
+                <input type="text" name="keyword" class="form-control form-control-sm" placeholder="Product Name...">
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary btn-sm">Go</button>
+            </div>
+        </form>
+    </div>
+</div>

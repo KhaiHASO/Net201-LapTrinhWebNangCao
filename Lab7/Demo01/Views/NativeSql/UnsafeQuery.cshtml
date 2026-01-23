@@ -1,0 +1,56 @@
+@model IEnumerable<Demo01.Models.Student>
+
+@{
+    ViewData["Title"] = "Unsafe Query (SQL Injection)";
+}
+
+<h1 class="text-danger">SQL Injection Demo (Unsafe)</h1>
+<p>Query: <code>SELECT * FROM Students WHERE FullName = '{searchName}'</code></p>
+
+<div class="alert alert-danger">
+    Try entering: <code>' OR 1=1 --</code>
+</div>
+
+<form method="get" class="row g-3 mb-3">
+    <div class="col-auto">
+        <input type="text" name="searchName" class="form-control" placeholder="Enter name..." value='@Context.Request.Query["searchName"]'>
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-danger">Unsafe Search</button>
+    </div>
+</form>
+
+@if (ViewBag.Query != null)
+{
+    <div class="alert alert-secondary">
+        <strong>Executed SQL:</strong> <br/>
+        <code>@ViewBag.Query</code>
+    </div>
+}
+
+@if(Model != null && Model.Any())
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Major</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.FullName</td>
+                    <td>@item.Age</td>
+                    <td>@item.Major</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<a asp-action="Index" class="btn btn-secondary">Back to List</a>

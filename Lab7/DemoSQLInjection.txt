@@ -1,0 +1,5 @@
+docker run --rm -it -p 8888:80 vulnerables/web-dvwa
+
+
+SELECT * FROM users WHERE id = '$input';
+SELECT * FROM users WHERE id = '1' OR '1'='1';

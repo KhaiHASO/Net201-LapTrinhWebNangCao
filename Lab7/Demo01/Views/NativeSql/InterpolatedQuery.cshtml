@@ -1,0 +1,48 @@
+@model IEnumerable<Demo01.Models.Student>
+
+@{
+    ViewData["Title"] = "Interpolated Query";
+}
+
+<h1>FromSqlInterpolated Demo</h1>
+<p>Query: <code>SELECT * FROM Students WHERE FullName LIKE {term}</code></p>
+
+<form method="get" class="row g-3 mb-3">
+    <div class="col-auto">
+        <input type="text" name="searchName" class="form-control" placeholder="Enter name..." value='@Context.Request.Query["searchName"]'>
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+</form>
+
+@if(Model != null && Model.Any())
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Major</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.FullName</td>
+                    <td>@item.Age</td>
+                    <td>@item.Major</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else if (Context.Request.Query.ContainsKey("searchName"))
+{
+    <div class="alert alert-warning">No students found.</div>
+}
+
+<a asp-action="Index" class="btn btn-secondary">Back to List</a>

@@ -1,0 +1,25 @@
+@model IEnumerable<Demo03.Controllers.ProductViewModel>
+
+@{
+    ViewData["Title"] = "Projection (ViewModel)";
+}
+
+<h1>Projection Demo</h1>
+<p>Data mapped to <code>ProductViewModel</code></p>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@item.Category</h6>
+                    <p class="card-text text-success fw-bold">@item.FormattedPrice.ToString("C")</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<a asp-action="Index" class="btn btn-secondary mt-3">Back to Menu</a>

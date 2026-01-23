@@ -1,0 +1,20 @@
+@model Demo03.Models.Product
+
+@{
+    ViewData["Title"] = "Single Result";
+}
+
+<h1>Single Result Demo</h1>
+
+<div class="card">
+    <div class="card-header">
+        Product Details
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">@Model.ProductName</h5>
+        <p class="card-text">Price: @Model.Price.ToString("C")</p>
+        <p class="card-text">ID: @Model.ProductId</p>
+    </div>
+</div>
+
+<a asp-action="Index" class="btn btn-secondary mt-3">Back to Menu</a>

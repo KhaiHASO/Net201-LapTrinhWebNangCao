@@ -1,0 +1,29 @@
+@model IEnumerable<Demo03.Controllers.GroupViewModel>
+
+@{
+    ViewData["Title"] = "Grouping Stats";
+}
+
+<h1>Grouping Statistics</h1>
+
+<table class="table table-dark table-hover">
+    <thead>
+        <tr>
+            <th>Category</th>
+            <th>Product Count</th>
+            <th>Average Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.CategoryName</td>
+                <td>@item.ProductCount</td>
+                <td>@item.AveragePrice.ToString("C")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Index" class="btn btn-secondary">Back to Menu</a>
