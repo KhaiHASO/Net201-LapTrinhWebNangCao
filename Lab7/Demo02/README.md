@@ -69,7 +69,7 @@ Thông thường, EF Core Migration chỉ tạo bảng (Table) dựa trên các 
 
 ---
 
-## 5. Kịch bản Demo (Script cho Giảng viên)
+## 5. Kịch bản Demo (Script )
 
 ### Bước 1: Kiểm tra Database
 - Mở SQL Server, query bảng `Customers` để thấy có cả user `Active`, `Inactive`, `New`.
