@@ -1,0 +1,66 @@
+@model IEnumerable<NET201Slide8Demo02.Models.Student>
+
+@{
+    ViewData["Title"] = "Eager Loading Demo";
+}
+
+<div class="container mt-4">
+    <h1 class="text-primary mb-4">Demo Eager Loading: Left Join & Inner Join</h1>
+    
+    <div class="alert alert-info">
+        <h5>Giải thích Demo:</h5>
+        <ul>
+            <li><strong>Inner Join (Branch):</strong> Tất cả sinh viên PHẢI có Branch (Quan hệ bắt buộc).</li>
+            <li><strong>Left Join (Address):</strong> Sinh viên CÓ THỂ không có Address (Quan hệ Nullable).</li>
+        </ul>
+    </div>
+
+    <div class="card shadow">
+        <div class="card-header bg-dark text-white">
+            <h5 class="mb-0">Danh sách Sinh viên</h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover table-bordered">
+                <thead class="table-light">
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Branch (Inner Join)</th>
+                        <th>Address (Left Join)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            
+                            <!-- Branch is Required -> Always has data -->
+                            <td>
+                                <span class="badge bg-success">@item.Branch?.BranchName</span>
+                            </td>
+
+                            <!-- Address is Optional -> May be Null -->
+                            <td>
+                                @if (item.Address != null)
+                                {
+                                    <span>@item.Address.Street</span>
+                                }
+                                else
+                                {
+                                    // Visualizing Left Join effect: Record exists even if Address is null
+                                    <span class="badge bg-warning text-dark">Chưa có địa chỉ (Left Join)</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer text-muted">
+            <small>
+                * Lưu ý: "Tran Van B" không có địa chỉ nhưng vẫn xuất hiện trong danh sách. 
+                Đây là kết quả của <code>LEFT JOIN</code> do EF Core sinh ra cho quan hệ Nullable.
+            </small>
+        </div>
+    </div>
+</div>
