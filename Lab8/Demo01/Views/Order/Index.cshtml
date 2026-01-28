@@ -1,0 +1,77 @@
+@model IEnumerable<Demo01.Models.Order>
+
+@{
+    ViewData["Title"] = "Eager Loading Demo";
+}
+
+<div class="container mt-4">
+    <h2 class="text-primary mb-4">Eager Loading Demo (Slide 7)</h2>
+
+    <!-- Code Snippet Box -->
+    <div class="card mb-4 border-info">
+        <div class="card-header bg-info text-white">
+            <h5 class="mb-0">Code Logic (OrderController.cs)</h5>
+        </div>
+        <div class="card-body bg-light">
+            <pre><code class="language-csharp">
+// Su dung .Include() de load du lieu bang lien quan (Eager Loading)
+var orders = await _context.Orders
+                           .Include(o => o.Customer) 
+                           .ToListAsync();
+            </code></pre>
+        </div>
+    </div>
+
+    <!-- Data Table -->
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <table class="table table-hover table-bordered align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col" class="text-center" style="width: 10%;">ID</th>
+                        <th scope="col" style="width: 30%;">Tên Đơn Hàng</th>
+                        <th scope="col" style="width: 30%;">Tên Khách Hàng (Customer)</th>
+                        <th scope="col" style="width: 30%;">Địa Chỉ (Address)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="text-center fw-bold">@item.OrderId</td>
+                            <td>@item.OrderName</td>
+                            <td>
+                                @if (item.Customer != null)
+                                {
+                                    <span class="badge bg-success fs-6">
+                                        <i class="bi bi-person-check-fill me-1"></i> @item.Customer.CustomerName
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger fs-6">
+                                        <i class="bi bi-exclamation-triangle-fill me-1"></i> Null
+                                    </span>
+                                }
+                            </td>
+                            <td>
+                                @if (item.Customer != null && item.Customer.Addresses.Any())
+                                {
+                                    var addr = item.Customer.Addresses.First();
+                                    <span class="badge bg-info text-dark fs-6">
+                                        <i class="bi bi-geo-alt-fill me-1"></i> @addr.City
+                                    </span>
+                                    <small class="d-block text-muted">@addr.Street</small>
+                                }
+                                else
+                                {
+                                    <span class="text-muted"><i class="bi bi-dash-circle"></i> N/A</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
