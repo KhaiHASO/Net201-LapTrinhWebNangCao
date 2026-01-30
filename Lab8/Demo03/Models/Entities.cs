@@ -12,7 +12,7 @@ public class Customer
     [StringLength(100)]
     public string CustomerName { get; set; } = string.Empty;
 
-    // VIRTUAL for Lazy Loading
+    // VIRTUAL cho Lazy Loading
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 }
 
@@ -27,7 +27,7 @@ public class Order
 
     public int? CustomerId { get; set; }
     
-    // VIRTUAL for Lazy Loading
+    // VIRTUAL cho Lazy Loading
     [ForeignKey("CustomerId")]
     public virtual Customer? Customer { get; set; }
 }

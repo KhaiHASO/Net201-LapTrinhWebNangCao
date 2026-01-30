@@ -15,11 +15,11 @@ public class OrderController : Controller
 
     public async Task<IActionResult> Index()
     {
-        // DEMO EAGER LOADING (Slide 7 + 8)
-        // Load Orders -> Customer -> Address
+        // MINH HỌA EAGER LOADING (Slide 7 + 8)
+        // Tải Orders -> Customer -> Address
         var orders = await _context.Orders
                                    .Include(o => o.Customer)
-                                       .ThenInclude(c => c.Addresses) // <--- THEN INCLUDE HERE
+                                       .ThenInclude(c => c.Addresses) // <--- THEN INCLUDE TẠI ĐÂY
                                    .ToListAsync();
 
         return View(orders);

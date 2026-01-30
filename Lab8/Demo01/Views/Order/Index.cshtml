@@ -14,7 +14,7 @@
         </div>
         <div class="card-body bg-light">
             <pre><code class="language-csharp">
-// Su dung .Include() de load du lieu bang lien quan (Eager Loading)
+// Sử dụng .Include() để tải dữ liệu bảng liên quan (Eager Loading)
 var orders = await _context.Orders
                            .Include(o => o.Customer) 
                            .ToListAsync();

@@ -15,39 +15,39 @@ namespace NET201Slide8Demo02.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Seed Data for Demonstration
+            // Seed Data (Dữ liệu mẫu) để minh họa
 
-            // 1. Create a Branch
+            // 1. Tạo một Branch
             modelBuilder.Entity<Branch>().HasData(
                 new Branch { BranchId = 1, BranchName = "CNTT" }
             );
 
-            // 2. Create an Address
+            // 2. Tạo một Address
             modelBuilder.Entity<Address>().HasData(
                 new Address { AddressId = 1, Street = "Hanoi" }
             );
 
-            // 3. Create Students
+            // 3. Tạo các Student
             modelBuilder.Entity<Student>().HasData(
-                // Student 1: Has both Branch and Address
-                // This will demonstrate a standard record.
+                // Student 1: Có cả Branch và Address
+                // Điều này minh họa một bản ghi tiêu chuẩn.
                 new Student 
                 { 
                     StudentId = 1, 
                     Name = "Nguyen Van A", 
-                    BranchId = 1, // Must have Branch
-                    AddressId = 1 // Has Address
+                    BranchId = 1, // Phải có Branch
+                    AddressId = 1 // Có Address
                 },
 
-                // Student 2: Has Branch but NO Address
-                // This demonstrates LEFT JOIN. Even though Address is joined, 
-                // this record appears with Address as null.
+                // Student 2: Có Branch nhưng KHÔNG CÓ Address
+                // Điều này minh họa LEFT JOIN. Mặc dù Address được join, 
+                // bản ghi này xuất hiện với Address là null.
                 new Student 
                 { 
                     StudentId = 2, 
                     Name = "Tran Van B", 
-                    BranchId = 1, // Must have Branch
-                    AddressId = null // NO Address -> Left Join Result
+                    BranchId = 1, // Phải có Branch
+                    AddressId = null // KHÔNG CÓ Address -> Kết quả Left Join
                 }
             );
         }

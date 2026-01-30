@@ -17,7 +17,7 @@ public class AppDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        // Seeding Data
+        // Seed Data (Dữ liệu mẫu)
         modelBuilder.Entity<Customer>().HasData(
             new Customer { CustomerId = 1, CustomerName = "FPT Polytechnic" },
             new Customer { CustomerId = 2, CustomerName = "Nguyen Van A" }
@@ -33,7 +33,7 @@ public class AppDbContext : DbContext
             new Order { OrderId = 1, OrderName = "Order #001 - Laptop", CustomerId = 1 },
             new Order { OrderId = 2, OrderName = "Order #002 - Mouse", CustomerId = 1 },
             new Order { OrderId = 3, OrderName = "Order #003 - Keyboard", CustomerId = 2 },
-            new Order { OrderId = 4, OrderName = "Order #004 - Monitor", CustomerId = null } // Orphan order for testing null
+            new Order { OrderId = 4, OrderName = "Order #004 - Monitor", CustomerId = null } // Đơn hàng mồ côi để kiểm tra giá trị null
         );
     }
 }

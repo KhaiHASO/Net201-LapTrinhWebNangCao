@@ -12,7 +12,7 @@ public class Order
     [StringLength(100)]
     public string OrderName { get; set; } = string.Empty;
 
-    public int? CustomerId { get; set; } // Nullable FK
+    public int? CustomerId { get; set; } // Khóa ngoại có thể null
     
     [ForeignKey("CustomerId")]
     public Customer? Customer { get; set; }

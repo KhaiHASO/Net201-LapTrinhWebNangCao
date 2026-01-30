@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NET201Slide8Demo02.Models
 {
-    // Slide 12: Branch (Subject of Inner Join)
+    // Slide 12: Branch (Chủ thể của Inner Join)
     public class Branch
     {
         [Key]
@@ -13,11 +13,11 @@ namespace NET201Slide8Demo02.Models
         [StringLength(100)]
         public string BranchName { get; set; } = string.Empty;
 
-        // Navigation Property: One Branch has many Students
+        // Thuộc tính điều hướng: Một Branch có nhiều Student
         public ICollection<Student> Students { get; set; } = new List<Student>();
     }
 
-    // Slide 9: Address (Subject of Left Join)
+    // Slide 9: Address (Chủ thể của Left Join)
     public class Address
     {
         [Key]
@@ -27,11 +27,11 @@ namespace NET201Slide8Demo02.Models
         [StringLength(200)]
         public string Street { get; set; } = string.Empty;
 
-        // Navigation containing referenced Student (1-1 or 1-0..1)
+        // Điều hướng chứa Student được tham chiếu (1-1 hoặc 1-0..1)
         public Student? Student { get; set; }
     }
 
-    // Slide 9 & 12: Student (The main entity)
+    // Slide 9 & 12: Student (Thực thể chính)
     public class Student
     {
         [Key]
@@ -41,19 +41,19 @@ namespace NET201Slide8Demo02.Models
         [StringLength(100)]
         public string Name { get; set; } = string.Empty;
 
-        // --- Demo Inner Join (Slide 12) ---
-        // BranchId is NON-NULLABLE (int), enforcing a Required Relationship.
-        // This naturally creates an INNER JOIN behavior when querying if enforced by DB, 
-        // though EF Core normally uses Inner Join for Required relationships.
+        // --- Minh họa Inner Join (Slide 12) ---
+        // BranchId KHÔNG ĐƯỢC NULL (int), bắt buộc mối quan hệ.
+        // Điều này tự nhiên tạo ra hành vi INNER JOIN khi truy vấn nếu được DB thực thi, 
+        // mặc dù EF Core thường sử dụng Inner Join cho các mối quan hệ bắt buộc.
         public int BranchId { get; set; }
         
         [ForeignKey("BranchId")]
         public Branch? Branch { get; set; }
 
 
-        // --- Demo Left Join (Slide 9) ---
-        // AddressId is NULLABLE (int?), allowing Optional Relationship.
-        // This allows Student to exist without an Address.
+        // --- Minh họa Left Join (Slide 9) ---
+        // AddressId CÓ THỂ NULL (int?), cho phép mối quan hệ tùy chọn.
+        // Điều này cho phép Student tồn tại mà không cần Address.
         public int? AddressId { get; set; }
 
         [ForeignKey("AddressId")]

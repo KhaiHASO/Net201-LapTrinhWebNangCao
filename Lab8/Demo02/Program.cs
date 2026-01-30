@@ -3,20 +3,20 @@ using NET201Slide8Demo02.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Thêm các dịch vụ vào container.
 builder.Services.AddControllersWithViews();
 
-// 1. Register DbContext
+// 1. Đăng ký DbContext
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("NET201Slide8Demo02")));
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Cấu hình đường ống xử lý HTTP.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    // Giá trị HSTS mặc định là 30 ngày. Bạn có thể muốn thay đổi điều này cho các kịch bản production, xem https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -27,12 +27,12 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-// 2. Configure Default Route to Student Controller
+// 2. Cấu hình định tuyến mặc định đến Student Controller
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Student}/{action=Index}/{id?}");
 
-// 3. Auto-Migration & Seed Data
+// 3. Tự động Migration & Seed Data
 // Tự động chạy Migration khi ứng dụng khởi động
 using (var scope = app.Services.CreateScope())
 {

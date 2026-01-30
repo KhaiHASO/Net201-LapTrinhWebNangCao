@@ -12,20 +12,20 @@ public class CustomerController : Controller
         _context = context;
     }
 
-    // LIST
+    // DANH SÁCH
     public IActionResult Index()
     {
-        // NO Include() required here.
-        // Lazy loading is configured, but we only load Customer info here, so NO extra SQL yet.
+        // KHÔNG yêu cầu Include() ở đây.
+        // Lazy loading đã được cấu hình, nhưng ta chỉ load thông tin Customer ở đây, nên CHƯA CÓ SQL phụ được sinh ra.
         var list = _context.Customers.ToList();
         return View(list);
     }
 
-    // DETAILS (Demonstrating LAZY LOADING)
+    // CHI TIẾT (Minh họa LAZY LOADING)
     public IActionResult Details(int id)
     {
-        var customer = _context.Customers.Find(id); // Only loads Customer
-        // When the View accesses customer.Orders, EF Core Proxy triggers a SQL query to load orders.
+        var customer = _context.Customers.Find(id); // Chỉ load Customer
+        // Khi View truy cập customer.Orders, EF Core Proxy sẽ kích hoạt một câu lệnh SQL để load orders.
         return View(customer);
     }
 }

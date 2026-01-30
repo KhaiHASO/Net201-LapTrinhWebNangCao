@@ -34,12 +34,12 @@
                         <tr>
                             <td>@item.Name</td>
                             
-                            <!-- Branch is Required -> Always has data -->
+                            <!-- Branch là Bắt buộc -> Luôn có dữ liệu -->
                             <td>
                                 <span class="badge bg-success">@item.Branch?.BranchName</span>
                             </td>
 
-                            <!-- Address is Optional -> May be Null -->
+                            <!-- Address là Tùy chọn -> Có thể Null -->
                             <td>
                                 @if (item.Address != null)
                                 {
@@ -47,7 +47,7 @@
                                 }
                                 else
                                 {
-                                    // Visualizing Left Join effect: Record exists even if Address is null
+                                    // Trực quan hóa hiệu ứng Left Join: Bản ghi tồn tại ngay cả khi Address là null
                                     <span class="badge bg-warning text-dark">Chưa có địa chỉ (Left Join)</span>
                                 }
                             </td>
