@@ -1,0 +1,46 @@
+@model Demo04.Models.Customer
+
+@{
+    ViewData["Title"] = "Customer Details";
+}
+
+<div class="container mt-4">
+    <h1>Customer Details</h1>
+    <div class="alert alert-success">
+        <i class="bi bi-check-circle-fill"></i>
+        Dữ liệu Orders vừa được tải thủ công bằng lệnh <code>_context.Entry(customer).Collection(c => c.Orders).Load()</code> sau khi đã có Customer object.
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            Information
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">@Model.FullName</h5>
+            <p class="card-text">Customer ID: @Model.CustomerId</p>
+        </div>
+    </div>
+
+    <h3>Orders List (@Model.Orders.Count items)</h3>
+    <table class="table table-sm table-bordered">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Date</th>
+                <th>Total Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model.Orders)
+            {
+                <tr>
+                    <td>@order.OrderId</td>
+                    <td>@order.OrderDate.ToString("g")</td>
+                    <td>@order.TotalAmount.ToString("C")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>
