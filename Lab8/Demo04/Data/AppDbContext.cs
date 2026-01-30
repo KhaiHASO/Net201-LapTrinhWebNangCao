@@ -22,9 +22,9 @@ namespace Demo04.Data
             );
 
             modelBuilder.Entity<Order>().HasData(
-                new Order { OrderId = 1, CustomerId = 1, OrderDate = DateTime.Now.AddDays(-10), TotalAmount = 150.00m },
-                new Order { OrderId = 2, CustomerId = 1, OrderDate = DateTime.Now.AddDays(-5), TotalAmount = 200.50m },
-                new Order { OrderId = 3, CustomerId = 1, OrderDate = DateTime.Now, TotalAmount = 99.99m }
+                new Order { OrderId = 1, CustomerId = 1, OrderDate = new DateTime(2025, 1, 20), TotalAmount = 150.00m },
+                new Order { OrderId = 2, CustomerId = 1, OrderDate = new DateTime(2025, 1, 25), TotalAmount = 200.50m },
+                new Order { OrderId = 3, CustomerId = 1, OrderDate = new DateTime(2025, 1, 30), TotalAmount = 99.99m }
             );
         }
     }

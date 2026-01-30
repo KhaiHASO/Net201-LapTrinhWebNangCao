@@ -16,12 +16,12 @@ namespace NET201Slide8Demo02.Controllers
         public IActionResult Index()
         {
             // Eager Loading Demo:
-            // 1. .Include(s => s.Branch) -> Inner Join (Vì Branch là Bắt buộc)
-            // 2. .Include(s => s.Address) -> Left Join (Vì Address là Nullable/Tùy chọn)
+            // 1. .Include(s => s.Branch) -> Inner Join (Because Branch is Required)
+            // 2. .Include(s => s.Address) -> Left Join (Because Address is Nullable/Optional)
             
             var students = _context.Students
-                                   .Include(s => s.Branch)
-                                   .Include(s => s.Address)
+                                   .Include(s => s.Branch)//inner join
+                                   .Include(s => s.Address)//left join
                                    .ToList();
 
             return View(students);
